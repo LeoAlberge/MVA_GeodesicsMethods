@@ -100,7 +100,6 @@ def imageplot(f, str='', sbpt=[]):
         plt.subplot(sbpt[0], sbpt[1], sbpt[2])
     imgplot = plt.imshow(f, interpolation='nearest')
     imgplot.set_cmap('gray')
-    pylab.axis('off')
     if str != '':
         plt.title(str)
 

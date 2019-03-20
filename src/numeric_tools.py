@@ -1,6 +1,6 @@
 import numpy as np
-from .nt_toolbox.grad import grad
-from .nt_toolbox.signal import  bilinear_interpolate
+from nt_toolbox.grad import grad
+from nt_toolbox.signal import bilinear_interpolate
 
 
 def build_circle(n=100, r=2):
@@ -19,7 +19,7 @@ def interpc(x,xf,yf):
 
 
 def curvabs(gamma):
-    return np.concatenate(([0], np.cumsum( 1e-5 + abs(gamma[:-1:]-gamma[1::]) ) ) )
+    return np.concatenate(([0], np.cumsum( 1e-5 + abs(gamma[:-1:]-gamma[1::]))))
 
 
 def resample1(gamma, d, p):
@@ -70,7 +70,7 @@ def compute_gradient(x):
     return res[:,:,0] + 1j*res[:,:,1]
 
 
-def evaluate_curve( c, x):
+def evaluate_curve(c, x):
     return bilinear_interpolate(x, np.imag(c), np.real(c))
 
 
@@ -84,5 +84,14 @@ def conv_circ(signal, ker):
     :param ker: real 1D array
     :return:  convolution
     """
-    return np.real(np.fft.ifft( np.fft.fft(signal)*np.fft.fft(ker) ))
+    return np.real(np.fft.ifft(np.fft.fft(signal)*np.fft.fft(ker)))
 
+
+def planar_curve(c_0, c_r, theta):
+    return c_0 + c_r*(np.cos(theta) + 1j*np.sin(theta))
+
+def compute_theta(x, c_0):
+    return np.mod(np.angle(x-c_0), 2*np.pi)
+
+def compute_region_term(c, f0, c1, c2):
+    return evaluate_curve(c, (f0-c1)**2 - (f0-c2)**2)
