@@ -37,7 +37,6 @@ def shiftR(c):
 def shiftL(c):
     return np.concatenate( (c[1::],[c[0]]) )
 
-
 def BwdDiff(c):
     return c - shiftR(c)
 
