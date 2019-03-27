@@ -14,16 +14,16 @@ def periodize(c):
     return np.concatenate((c, [c[0]]))
 
 
-def interpc(x,xf,yf):
+def interpc(x, xf, yf):
     return np.interp(x, xf, np.real(yf)) + 1j * np.interp(x, xf, np.imag(yf))
 
 
 def curvabs(gamma):
-    return np.concatenate(([0], np.cumsum( 1e-5 + abs(gamma[:-1:]-gamma[1::]))))
+    return np.concatenate(([0], np.cumsum(1e-5 + abs(gamma[:-1:]-gamma[1::]))))
 
 
 def resample1(gamma, d, p):
-    return interpc(np.arange(0,p)/float(p),  d/d[-1], gamma)
+    return interpc(np.arange(0, p)/float(p),  d/d[-1], gamma)
 
 
 def resample(gamma, p):
@@ -31,11 +31,12 @@ def resample(gamma, p):
 
 
 def shiftR(c):
-    return np.concatenate( ([c[-1]],c[:-1:]) )
+    return np.concatenate(([c[-1]], c[:-1:]))
 
 
 def shiftL(c):
-    return np.concatenate( (c[1::],[c[0]]) )
+    return np.concatenate((c[1::], [c[0]]))
+
 
 def BwdDiff(c):
     return c - shiftR(c)
@@ -45,20 +46,20 @@ def FwdDiff(c):
     return shiftL(c) - c
 
 
-def normalize( v):
-    return v/np.maximum(abs(v),1e-10)
+def normalize(v):
+    return v/np.maximum(abs(v), 1e-10)
 
 
-def tangent( gamma):
-    return normalize( FwdDiff(gamma) )
+def tangent(gamma):
+    return normalize(FwdDiff(gamma))
 
 
-def normal( gamma):
+def normal(gamma):
     return -1j*tangent(gamma)
 
 
 def normal_curvature(gamma):
-    return BwdDiff(tangent(gamma)) / abs( FwdDiff(gamma) )
+    return BwdDiff(tangent(gamma)) / abs(FwdDiff(gamma))
 
 
 def compute_gradient(x):
@@ -66,14 +67,14 @@ def compute_gradient(x):
     Computes gradient in imaginary form.
     """
     res = grad(x)
-    return res[:,:,0] + 1j*res[:,:,1]
+    return res[:, :, 0] + 1j*res[:, :, 1]
 
 
 def evaluate_curve(c, x):
     return bilinear_interpolate(x, np.imag(c), np.real(c))
 
 
-def dot_product( c1, c2):
+def dot_product(c1, c2):
     return np.real(c1)*np.real(c2) + np.imag(c1)*np.imag(c2)
 
 
@@ -89,8 +90,10 @@ def conv_circ(signal, ker):
 def planar_curve(c_0, c_r, theta):
     return c_0 + c_r*(np.cos(theta) + 1j*np.sin(theta))
 
+
 def compute_theta(x, c_0):
     return np.mod(np.angle(x-c_0), 2*np.pi)
+
 
 def compute_region_term(c, f0, c1, c2):
     return evaluate_curve(c, (f0-c1)**2 - (f0-c2)**2)

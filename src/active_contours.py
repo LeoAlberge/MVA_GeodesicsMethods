@@ -1,10 +1,9 @@
-import numpy as np
-from numeric_tools import conv_circ, evaluate_curve, normal_curvature, dot_product,\
-                           planar_curve, curvabs, compute_gradient, normal, resample,\
-                            compute_region_term
-
-from plotting_tools import show_fig_polar_curve, show_fig_standard_curve,show_fig_polar_curve_debug
 import matplotlib.pyplot as plt
+import numpy as np
+from numeric_tools import conv_circ, evaluate_curve, normal_curvature, dot_product, \
+    planar_curve, curvabs, compute_gradient, normal, resample, \
+    compute_region_term
+from plotting_tools import show_fig_polar_curve, show_fig_standard_curve
 
 
 def K(s, gam, L):
@@ -45,7 +44,7 @@ def gradient_L2_new(c, N, **kwargs):
 
 def gradient_L(c, gradient_l2, L, N, lam, theta):
     ct_0 = gradient_l2.mean()
-    ct_r = dot_product(np.cos(theta) + 1j*np.sin(theta), gradient_l2)/(lam)
+    ct_r = dot_product(np.cos(theta) + 1j*np.sin(theta), gradient_l2)/lam
     return ct_0, ct_r
 
 
@@ -226,7 +225,7 @@ def perform_gradient_descent_polar_curve(I,
         c_0 = c_0 - dt * ct_0
         c_r = c_r - dt * ct_r
 
-        if 'step_display' in kwargs and  i % kwargs['step_display'] == 0:
+        if 'step_display' in kwargs and i % kwargs['step_display'] == 0:
             show_fig_polar_curve(fig=fig,
                                  W=I,
                                  c=c,

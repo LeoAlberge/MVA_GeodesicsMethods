@@ -1,6 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from nt_toolbox.signal import imageplot
+
 
 def plot_levelset(Z, level=0, f=[]):
     """

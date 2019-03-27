@@ -1,12 +1,11 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pylab
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-from scipy import ndimage
 # signal.py: TODO: try to not make use of transform.resize
 from skimage import transform
 
 from . import general as nt
+
 
 #from nt_toolbox.general import *
 
