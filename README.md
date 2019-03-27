@@ -1,6 +1,6 @@
-# MVA_GeodesicsMethods
+# MVA Geodesics methods
 
-In this project, I have implemented the method proposed by
+In this project for the class taught by Laurent Cohen (Master MVA), I have implemented the method proposed by
 "Baust, M., Yezzi, A. J., Unal, G., & Navab, N. (2011, June).
 A sobolev-type metric for polar active contours. In CVPR 2011 (pp. 1017-1024). IEEE." for active polar contours.
 
