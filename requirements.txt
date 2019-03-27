@@ -4,3 +4,4 @@ scipy
 jupyter
 scikit-image
 scikit-fmm
+seaborn

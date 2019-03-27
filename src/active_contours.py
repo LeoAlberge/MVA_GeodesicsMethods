@@ -196,7 +196,7 @@ def perform_gradient_descent_polar_curve(I,
                                          lam=1,
                                          **kwargs
                                          ):
-    fig = plt.figure(figsize=(10, 4))
+    fig = plt.figure(figsize=(10, 8))
     plt.subplots_adjust(hspace=1)
 
     theta = np.transpose(np.linspace(0, 2 * np.pi, nb_points_c + 1))
@@ -255,7 +255,7 @@ def perform_gradient_descent_polar_curve(I,
                          show_grad_c0=True,
                          show_background=True,
                          timing=0.5,
-                         save=kwargs['save'])
+                         **kwargs)
 
     return c_0, c_r
 

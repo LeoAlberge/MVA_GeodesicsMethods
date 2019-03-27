@@ -36,7 +36,7 @@ def show_fig_polar_curve(fig, c, W,  **kwargs):
     """
     if 'c_r' in kwargs:
         ax1 = fig.add_subplot(2, 2, 1)
-        ax1.set_title('Composante radiale du gradient')
+        ax1.set_title('Composante radiale du contour')
         ax1.plot(kwargs['theta'], -kwargs['c_r'])
         #plt.axhline(y=0, color='r', linestyle='-')
         ax1.set_xlabel(r"$ \theta $")
@@ -47,7 +47,7 @@ def show_fig_polar_curve(fig, c, W,  **kwargs):
         fft = np.fft.fft(kwargs['c_r'])
         ax3.plot(np.abs(fft)[:int(len(fft) / 2)])
         ax3.set_yscale('log')
-        ax3.set_title('Coefficients de Fourier de la componsante radiale du contour.')
+        ax3.set_title('Coefficients de Fourier de la componsante radiale  \n du contour')
         ax3.set_xlabel(r"$\omega$")
 
     ax2 = fig.add_subplot(2, 2, 2)
@@ -81,6 +81,12 @@ def show_fig_polar_curve(fig, c, W,  **kwargs):
     fig.canvas.draw()  # draw
     clear = True if 'clear' in kwargs else False
     save = True if 'save' in kwargs else False
+    save_contour = True if 'save_contour' in kwargs else False
+
+    if save_contour:
+        extent = ax4.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+        fig.savefig('{}.eps'.format(kwargs['save_contour']), bbox_inches=extent.expanded(1.3, 1.3))
+
     if save:
         if 'iter' in kwargs:
             plt.savefig('{}_{}.eps'.format(kwargs['save'], str(kwargs['iter'])), quality=100)
